@@ -30,7 +30,7 @@ fun Header(
         modifier = Modifier
             .fillMaxWidth()
             .background(onSecondaryLight)
-            .padding(horizontal = 24.dp, vertical = 20.dp),
+            .padding(horizontal = 22.dp, vertical = 20.dp),
         // SpaceBetween empuja el texto a la izquierda y el ícono a la derecha
         horizontalArrangement = Arrangement.SpaceBetween,
         // Centra ambos elementos verticalmente
