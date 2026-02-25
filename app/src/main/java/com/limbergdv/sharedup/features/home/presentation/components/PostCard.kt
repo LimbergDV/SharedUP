@@ -29,23 +29,20 @@ import com.limbergdv.sharedup.core.ui.theme.onSurfaceVariantLight
 import com.limbergdv.sharedup.core.ui.theme.outlineVariantLight
 
 @Composable
-fun Card() {
-
+fun PostCard() {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
-            .clip(RoundedCornerShape(20.dp)) // Bordes redondeados de toda la tarjeta
+            .padding(horizontal = 24.dp, vertical = 8.dp)
+            .clip(RoundedCornerShape(20.dp))
             .background(onSurfaceVariantLight)
     ) {
-
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-
             Image(
                 painter = painterResource(id = R.drawable.up_logo),
                 contentDescription = "Logo UP",
@@ -70,7 +67,7 @@ fun Card() {
                 )
             }
 
-            // Hora y Fecha
+
             Row(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalAlignment = Alignment.CenterVertically
@@ -90,7 +87,7 @@ fun Card() {
             }
         }
 
-        // cuerpo del mensaje
+
         Text(
             text = "El dia de hoy no hay paso en via téran hay una\nmarcha de docentes",
             fontSize = 16.sp,
@@ -100,18 +97,16 @@ fun Card() {
 
         Spacer(modifier = Modifier.size(8.dp))
 
-
+        // Likes / Dislikes
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-
-                .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
+                // Eliminado el clip extra aquí, el contenedor padre ya redondea las esquinas
                 .background(outlineVariantLight)
                 .padding(horizontal = 24.dp, vertical = 16.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Start
         ) {
-            // Sección Like
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(
                     painter = painterResource(id = R.drawable.like_icon),
@@ -128,9 +123,8 @@ fun Card() {
                 )
             }
 
-            Spacer(modifier = Modifier.width(24.dp)) // Separación entre Like y Dislike
+            Spacer(modifier = Modifier.width(24.dp))
 
-            // Sección Dislike
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(
                     painter = painterResource(id = R.drawable.dislike_icon),
@@ -153,5 +147,5 @@ fun Card() {
 @Preview(showBackground = true)
 @Composable
 fun PreviewPostCard() {
-    Card()
+    PostCard()
 }
