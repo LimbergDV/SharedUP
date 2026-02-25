@@ -1,4 +1,4 @@
-package com.limbergdv.sharedup.features.home.presentation.screens
+package com.limbergdv.sharedup.features.myPosts.presentation.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -17,10 +17,10 @@ import com.limbergdv.sharedup.core.shared.components.Header
 import com.limbergdv.sharedup.core.shared.components.NavBar
 import com.limbergdv.sharedup.core.ui.theme.onPrimaryLight
 import com.limbergdv.sharedup.core.ui.theme.primaryLight
-import com.limbergdv.sharedup.features.home.presentation.components.PostCard
+import com.limbergdv.sharedup.features.myPosts.presentation.components.MyPostCard
 
 @Composable
-fun HomeScreen() {
+fun MyPostScreen(){
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         containerColor = onPrimaryLight,
@@ -38,22 +38,23 @@ fun HomeScreen() {
             Spacer(modifier = Modifier.height(19.dp))
 
             Text(
-                text = "Novedades",
+                text = "Mis publicaciones",
                 fontSize = 35.sp,
                 fontWeight = FontWeight.Bold,
                 color = primaryLight,
                 modifier = Modifier.padding(horizontal = 24.dp)
             )
 
-            Spacer(modifier = Modifier.height(18.dp))
+            Spacer(modifier = Modifier.height(20.dp))
 
-            PostCard()
+            MyPostCard()
         }
     }
+
 }
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewHome() {
-    HomeScreen()
+fun PreviewMyPost(){
+    MyPostScreen()
 }
