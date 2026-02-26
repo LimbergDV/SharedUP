@@ -27,9 +27,10 @@ import androidx.compose.ui.unit.sp
 import com.limbergdv.sharedup.R
 import com.limbergdv.sharedup.core.ui.theme.onSurfaceVariantLight
 import com.limbergdv.sharedup.core.ui.theme.outlineVariantLight
+import com.limbergdv.sharedup.features.addPost.domain.entities.Post
 
 @Composable
-fun PostCard() {
+fun PostCard(post: Post) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -40,7 +41,7 @@ fun PostCard() {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 12.dp),
+                .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 4.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
@@ -55,7 +56,7 @@ fun PostCard() {
 
             Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    text = "Limberg del valle",
+                    text = "Usuario #${post.idUser}",
                     fontWeight = FontWeight.ExtraBold,
                     fontSize = 18.sp,
                     color = Color.Black
@@ -66,7 +67,6 @@ fun PostCard() {
                     color = Color.DarkGray
                 )
             }
-
 
             Row(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -87,21 +87,26 @@ fun PostCard() {
             }
         }
 
-
         Text(
-            text = "El dia de hoy no hay paso en via téran hay una\nmarcha de docentes",
-            fontSize = 16.sp,
+            text = post.title,
+            fontWeight = FontWeight.Bold,
+            fontSize = 18.sp,
             color = Color.Black,
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp)
         )
 
-        Spacer(modifier = Modifier.size(8.dp))
 
-        // Likes / Dislikes
+        Text(
+            text = post.text,
+            fontSize = 16.sp,
+            color = Color.Black,
+            modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 12.dp)
+        )
+
+
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                // Eliminado el clip extra aquí, el contenedor padre ya redondea las esquinas
                 .background(outlineVariantLight)
                 .padding(horizontal = 24.dp, vertical = 16.dp),
             verticalAlignment = Alignment.CenterVertically,
@@ -116,7 +121,7 @@ fun PostCard() {
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
-                    text = "12",
+                    text = post.likeCount.toString(),
                     fontWeight = FontWeight.ExtraBold,
                     fontSize = 18.sp,
                     color = Color.Black
@@ -134,7 +139,7 @@ fun PostCard() {
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
-                    text = "0",
+                    text = post.disLikeCount.toString(),
                     fontWeight = FontWeight.ExtraBold,
                     fontSize = 18.sp,
                     color = Color.Black
@@ -147,5 +152,14 @@ fun PostCard() {
 @Preview(showBackground = true)
 @Composable
 fun PreviewPostCard() {
-    PostCard()
+    PostCard(
+        post = Post(
+            id = 1,
+            title = "Aviso importante de vialidad",
+            text = "El dia de hoy no hay paso en via téran hay una marcha de docentes",
+            likeCount = 12,
+            disLikeCount = 0,
+            idUser = 101
+        )
+    )
 }
