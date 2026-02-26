@@ -7,6 +7,8 @@ val primaryContainerLight = Color(0xFF769CDF)
 val onPrimaryContainerLight = Color(0xFF00326A)
 val secondaryLight = Color(0xFF005EB3)
 val onSecondaryLight = Color(0xFFFFFFFF)
+
+val successColor = Color(0xFF4CAF50)
 val secondaryContainerLight = Color(0xFF3591FF)
 val onSecondaryContainerLight = Color(0xFF002A56)
 val tertiaryLight = Color(0xFF00657C)
