@@ -37,17 +37,10 @@ import com.limbergdv.sharedup.features.authentication.presentation.viewmodels.Lo
 @Composable
 fun LoginScreen(
     viewModel: LoginViewModel = hiltViewModel(),
-    onRegisterClick: () -> Unit,
-    onLoginSuccess: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    LaunchedEffect(uiState.isLoggedIn) {
-        if (uiState.isLoggedIn) {
-            viewModel.clearResult()
-            onLoginSuccess()
-        }
-    }
+
 
     Column(
         modifier = Modifier
@@ -162,7 +155,7 @@ fun LoginScreen(
                     },
                     fontSize = 14.sp,
                     color = Color.Gray,
-                    modifier = Modifier.clickable { onRegisterClick() }
+                    modifier = Modifier.clickable { viewModel.goToRegister() }
                 )
             }
         }
