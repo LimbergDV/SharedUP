@@ -2,6 +2,7 @@ package com.limbergdv.sharedup.core.di
 
 import android.content.Context
 import com.limbergdv.sharedup.core.network.AuthInterceptor
+import com.limbergdv.sharedup.core.network.SharedUpApi
 import com.limbergdv.sharedup.core.session.SessionManager
 import com.limbergdv.sharedup.core.session.TokenDataStore
 import dagger.Module
@@ -46,5 +47,11 @@ object NetworkModule {
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideSharedUpApi(retrofit: Retrofit): SharedUpApi {
+        return retrofit.create(SharedUpApi::class.java)
     }
 }

@@ -104,8 +104,8 @@ fun RegisterScreen(
             Spacer(modifier = Modifier.height(16.dp))
 
             AuthTextField(
-                value = uiState.lastName,
-                onValueChange = viewModel::onLastNameChange,
+                value = uiState.career,
+                onValueChange = viewModel::onCareerChange,
                 placeholder = "Apellido"
             )
 

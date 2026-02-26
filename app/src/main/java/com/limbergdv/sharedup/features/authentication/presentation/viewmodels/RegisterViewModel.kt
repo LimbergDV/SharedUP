@@ -1,16 +1,21 @@
 package com.limbergdv.sharedup.features.authentication.presentation.viewmodels
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.limbergdv.sharedup.features.authentication.domain.usecases.RegisterUseCase
 import com.limbergdv.sharedup.features.authentication.presentation.screens.RegisterUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class RegisterViewModel @Inject constructor() : ViewModel() {
+class RegisterViewModel @Inject constructor(
+    private val registerUseCase: RegisterUseCase
+) : ViewModel() {
 
     private val _uiState = MutableStateFlow(RegisterUiState())
     val uiState: StateFlow<RegisterUiState> = _uiState.asStateFlow()
@@ -19,8 +24,8 @@ class RegisterViewModel @Inject constructor() : ViewModel() {
         _uiState.update { it.copy(name = name) }
     }
 
-    fun onLastNameChange(lastName: String) {
-        _uiState.update { it.copy(lastName = lastName) }
+    fun onCareerChange(career: String) {
+        _uiState.update { it.copy(career = career) }
     }
 
     fun onEmailChange(email: String) {
@@ -34,7 +39,8 @@ class RegisterViewModel @Inject constructor() : ViewModel() {
     fun onRegister() {
         val state = _uiState.value
 
-        if (state.name.isBlank() || state.lastName.isBlank() ||
+        // Validaciones locales
+        if (state.name.isBlank() || state.career.isBlank() ||
             state.email.isBlank() || state.password.isBlank()
         ) {
             _uiState.update { it.copy(error = "Todos los campos son obligatorios.") }
@@ -51,8 +57,22 @@ class RegisterViewModel @Inject constructor() : ViewModel() {
             return
         }
 
-        // TODO: Inyectar y llamar UseCase cuando haya API
-        _uiState.update { it.copy(isSuccess = true) }
+        _uiState.update { it.copy(isLoading = true, error = null) }
+
+        viewModelScope.launch {
+            val result = registerUseCase(
+                name = state.name,
+                email = state.email,
+                password = state.password,
+                career = state.career
+            )
+            _uiState.update { current ->
+                result.fold(
+                    onSuccess = { current.copy(isLoading = false, isSuccess = true) },
+                    onFailure = { e -> current.copy(isLoading = false, error = e.message ?: "Error en el registro") }
+                )
+            }
+        }
     }
 
     fun clearResult() {
