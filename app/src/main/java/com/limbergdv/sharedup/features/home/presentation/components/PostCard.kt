@@ -2,6 +2,7 @@ package com.limbergdv.sharedup.features.home.presentation.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -30,7 +31,11 @@ import com.limbergdv.sharedup.core.ui.theme.outlineVariantLight
 import com.limbergdv.sharedup.features.addPost.domain.entities.Post
 
 @Composable
-fun PostCard(post: Post) {
+fun PostCard(
+    post: Post,
+    onLikeClick: () -> Unit = {},
+    onDislikeClick: () -> Unit = {}
+) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -95,14 +100,12 @@ fun PostCard(post: Post) {
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp)
         )
 
-
         Text(
             text = post.text,
             fontSize = 16.sp,
             color = Color.Black,
             modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 12.dp)
         )
-
 
         Row(
             modifier = Modifier
@@ -116,8 +119,9 @@ fun PostCard(post: Post) {
                 Icon(
                     painter = painterResource(id = R.drawable.like_icon),
                     contentDescription = "Like",
-                    modifier = Modifier.size(28.dp),
-                    tint = Color.Black
+                    modifier = Modifier.size(28.dp).clickable { onLikeClick() },
+                    // CAMBIO AQUÍ: Cambia de color si está seleccionado
+                    tint = if (post.isLiked) com.limbergdv.sharedup.core.ui.theme.primaryLight else Color.Black
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
@@ -134,8 +138,9 @@ fun PostCard(post: Post) {
                 Icon(
                     painter = painterResource(id = R.drawable.dislike_icon),
                     contentDescription = "Dislike",
-                    modifier = Modifier.size(28.dp),
-                    tint = Color.Black
+                    modifier = Modifier.size(28.dp).clickable { onDislikeClick() },
+                    // CAMBIO AQUÍ: Cambia de color si está seleccionado (usé Red de ejemplo, puedes usar otro)
+                    tint = if (post.isDisliked) Color.Red else Color.Black
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(

@@ -11,8 +11,14 @@ class HomeRepositoryImpl @Inject constructor(
 ) : HomeRepository {
 
     override suspend fun getPosts(): List<Post> {
-        val response = api.getPosts()
-        // Reutilizamos tu mapper existente para convertir los DTOs a la entidad de dominio
-        return response.map { it.toDomain() }
+        return api.getPosts().map { it.toDomain() }
+    }
+
+    override suspend fun likePost(postId: Int): Post {
+        return api.likePost(postId).toDomain()
+    }
+
+    override suspend fun dislikePost(postId: Int): Post {
+        return api.dislikePost(postId).toDomain()
     }
 }
