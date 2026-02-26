@@ -2,7 +2,7 @@ package com.limbergdv.sharedup.features.authentication.presentation.screens
 
 data class RegisterUiState(
     val name: String = "",
-    val lastName: String = "",
+    val career: String = "",
     val email: String = "",
     val password: String = "",
     val isLoading: Boolean = false,

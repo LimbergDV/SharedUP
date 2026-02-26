@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -27,8 +26,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.limbergdv.sharedup.features.authentication.presentation.viewmodels.RegisterViewModel
 import com.limbergdv.sharedup.core.ui.theme.primaryLight
+import com.limbergdv.sharedup.features.authentication.presentation.components.DialogError
+import com.limbergdv.sharedup.features.authentication.presentation.components.DialogSuccess
+import com.limbergdv.sharedup.features.authentication.presentation.viewmodels.RegisterViewModel
 
 @Composable
 fun RegisterScreen(
@@ -38,12 +39,8 @@ fun RegisterScreen(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    LaunchedEffect(uiState.isSuccess) {
-        if (uiState.isSuccess) {
-            viewModel.clearResult()
-            onRegisterSuccess()
-        }
-    }
+    // Navega al login automáticamente solo cuando el usuario cierra el dialog de éxito
+    // (se maneja en el onDismiss del DialogSuccess)
 
     Column(
         modifier = Modifier
@@ -104,9 +101,9 @@ fun RegisterScreen(
             Spacer(modifier = Modifier.height(16.dp))
 
             AuthTextField(
-                value = uiState.lastName,
-                onValueChange = viewModel::onLastNameChange,
-                placeholder = "Apellido"
+                value = uiState.career,
+                onValueChange = viewModel::onCareerChange,
+                placeholder = "Carrera"
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -146,16 +143,33 @@ fun RegisterScreen(
         }
     }
 
-    uiState.error?.let { errorMsg ->
-        AlertDialog(
-            onDismissRequest = { viewModel.clearResult() },
-            title = { Text("Error en el registro", color = Color.Red) },
-            text = { Text(errorMsg) },
-            confirmButton = {
-                Button(onClick = { viewModel.clearResult() }) {
-                    Text("Aceptar")
-                }
+    // Dialog de éxito — al aceptar navega al login
+    if (uiState.isSuccess) {
+        DialogSuccess(
+            title = "¡Registro exitoso!",
+            message = "Tu cuenta fue creada correctamente. Inicia sesión para continuar.",
+            buttonText = "Ir a iniciar sesión",
+            onDismiss = {
+                viewModel.clearResult()
+                onRegisterSuccess()
             }
+        )
+    }
+
+    // Dialog de error con título dinámico según el tipo de error
+    uiState.error?.let { errorMsg ->
+        val title = when {
+            errorMsg.contains("obligatorio", ignoreCase = true) -> "Campos vacíos"
+            errorMsg.contains("correo", ignoreCase = true) -> "Correo inválido"
+            errorMsg.contains("contraseña", ignoreCase = true) -> "Contraseña muy corta"
+            errorMsg.contains("registrado", ignoreCase = true) -> "Correo ya registrado"
+            else -> "Error en el registro"
+        }
+        DialogError(
+            title = title,
+            message = errorMsg,
+            buttonText = "Intentar de nuevo",
+            onDismiss = { viewModel.clearResult() }
         )
     }
 }

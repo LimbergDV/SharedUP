@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -31,8 +30,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.limbergdv.sharedup.features.authentication.presentation.viewmodels.LoginViewModel
 import com.limbergdv.sharedup.core.ui.theme.primaryLight
+import com.limbergdv.sharedup.features.authentication.presentation.components.DialogError
+import com.limbergdv.sharedup.features.authentication.presentation.viewmodels.LoginViewModel
 
 @Composable
 fun LoginScreen(
@@ -53,7 +53,6 @@ fun LoginScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(primaryLight)
-
     ) {
         Spacer(modifier = Modifier.height(74.dp))
 
@@ -63,7 +62,6 @@ fun LoginScreen(
             fontWeight = FontWeight.Bold,
             color = Color.White,
             modifier = Modifier.padding(start = 32.dp)
-
         )
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -170,16 +168,20 @@ fun LoginScreen(
         }
     }
 
+    // Dialog de error con texto dinámico según el tipo de error
     uiState.error?.let { errorMsg ->
-        AlertDialog(
-            onDismissRequest = { viewModel.clearResult() },
-            title = { Text("Error al iniciar sesión", color = Color.Red) },
-            text = { Text(errorMsg) },
-            confirmButton = {
-                Button(onClick = { viewModel.clearResult() }) {
-                    Text("Aceptar")
-                }
-            }
+        val title = when {
+            errorMsg.contains("obligatorio", ignoreCase = true) -> "Campos vacíos"
+            errorMsg.contains("correo", ignoreCase = true) -> "Correo inválido"
+            errorMsg.contains("contraseña", ignoreCase = true) -> "Contraseña incorrecta"
+            errorMsg.contains("credencial", ignoreCase = true) -> "Credenciales incorrectas"
+            else -> "Error al iniciar sesión"
+        }
+        DialogError(
+            title = title,
+            message = errorMsg,
+            buttonText = "Intentar de nuevo",
+            onDismiss = { viewModel.clearResult() }
         )
     }
 }
