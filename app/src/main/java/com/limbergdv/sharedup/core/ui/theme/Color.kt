@@ -1,4 +1,4 @@
-package com.limbergdv.sharedup.ui.theme
+package com.limbergdv.sharedup.core.ui.theme
 import androidx.compose.ui.graphics.Color
 
 val primaryLight = Color(0xFF024873)
@@ -7,6 +7,8 @@ val primaryContainerLight = Color(0xFF769CDF)
 val onPrimaryContainerLight = Color(0xFF00326A)
 val secondaryLight = Color(0xFF005EB3)
 val onSecondaryLight = Color(0xFFFFFFFF)
+
+val successColor = Color(0xFF4CAF50)
 val secondaryContainerLight = Color(0xFF3591FF)
 val onSecondaryContainerLight = Color(0xFF002A56)
 val tertiaryLight = Color(0xFF00657C)
@@ -14,6 +16,10 @@ val onTertiaryLight = Color(0xFFFFFFFF)
 val tertiaryContainerLight = Color(0xFF007F9C)
 val onTertiaryContainerLight = Color(0xFFFAFDFF)
 val errorLight = Color(0xFFBA1A1A)
+
+val textFieldColor = Color(0xFFE0E0E0)
+
+val onTextFielColor = Color(0xFFE0E0E0)
 val onErrorLight = Color(0xFFFFFFFF)
 val errorContainerLight = Color(0xFFFFDAD6)
 val onErrorContainerLight = Color(0xFF93000A)
@@ -22,7 +28,7 @@ val onBackgroundLight = Color(0xFF1A1C20)
 val surfaceLight = Color(0xFFF9F9FF)
 val onSurfaceLight = Color(0xFF1A1C20)
 val surfaceVariantLight = Color(0xFFDFE2EE)
-val onSurfaceVariantLight = Color(0xFF434750)
+val onSurfaceVariantLight = Color(0xFFE2E2E2)
 val outlineLight = Color(0xFF737781)
 val outlineVariantLight = Color(0xFFC3C6D2)
 val scrimLight = Color(0xFF000000)
