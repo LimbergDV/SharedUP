@@ -20,11 +20,26 @@ import com.limbergdv.sharedup.core.ui.theme.onPrimaryLight
 import com.limbergdv.sharedup.core.ui.theme.primaryLight
 import com.limbergdv.sharedup.features.myPosts.presentation.components.MyPostCard
 import com.limbergdv.sharedup.features.myPosts.presentation.viewmodels.MyPostViewModel
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.runtime.*
+import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Alignment
+
 
 @Composable
 fun MyPostScreen(
     viewModel: MyPostViewModel = hiltViewModel()
-){
+) {
+
+    val posts by viewModel.posts.collectAsState()
+    val isLoading by viewModel.isLoading.collectAsState()
+
+    LaunchedEffect(Unit) {
+        viewModel.loadMyPosts()
+    }
+
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         containerColor = onPrimaryLight,
@@ -36,11 +51,13 @@ fun MyPostScreen(
             )
         }
     ) { innerPadding ->
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
         ) {
+
             Header()
 
             Spacer(modifier = Modifier.height(19.dp))
@@ -55,14 +72,23 @@ fun MyPostScreen(
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            MyPostCard()
+            if (isLoading) {
+
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text("Cargando...")
+                }
+
+            } else {
+
+                LazyColumn {
+                    items(posts) { post ->
+                        MyPostCard(post = post)
+                    }
+                }
+            }
         }
     }
-
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewMyPost(){
-    MyPostScreen()
 }
