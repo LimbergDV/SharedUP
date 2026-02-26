@@ -20,6 +20,7 @@ class CreatePostUseCase @Inject constructor(
             val post = repository.createPost(title, text)
             Result.success(post)
         } catch (e: Exception) {
+            android.util.Log.e("NETWORK_ERROR", "Error al crear publicación", e)
             Result.failure(e)
         }
     }
