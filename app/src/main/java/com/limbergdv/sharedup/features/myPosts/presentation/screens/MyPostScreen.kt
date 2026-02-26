@@ -13,19 +13,27 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.limbergdv.sharedup.core.shared.components.Header
 import com.limbergdv.sharedup.core.shared.components.NavBar
 import com.limbergdv.sharedup.core.ui.theme.onPrimaryLight
 import com.limbergdv.sharedup.core.ui.theme.primaryLight
 import com.limbergdv.sharedup.features.myPosts.presentation.components.MyPostCard
+import com.limbergdv.sharedup.features.myPosts.presentation.viewmodels.MyPostViewModel
 
 @Composable
-fun MyPostScreen(){
+fun MyPostScreen(
+    viewModel: MyPostViewModel = hiltViewModel()
+){
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         containerColor = onPrimaryLight,
         bottomBar = {
-            NavBar()
+            NavBar(
+                onHomeClick = { viewModel.goHome() },
+                onAddClick = { viewModel.goToAddPost() },
+                onHistoryClick = { viewModel.goToHistory() }
+            )
         }
     ) { innerPadding ->
         Column(

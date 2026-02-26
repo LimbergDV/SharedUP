@@ -2,8 +2,11 @@ package com.limbergdv.sharedup.features.addPost.presentation.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.limbergdv.sharedup.core.navigation.AppNavigator
 import com.limbergdv.sharedup.features.addPost.domain.usecases.CreatePostUseCase
 import com.limbergdv.sharedup.features.addPost.presentation.screens.AddPostUiState
+import com.limbergdv.sharedup.features.home.navigation.HomeRoutes
+import com.limbergdv.sharedup.features.myPosts.navigation.MyPostRoutes
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,7 +16,8 @@ import kotlinx.coroutines.launch
 
 @HiltViewModel
 class AddPostViewModel @Inject constructor(
-    private val createPostUseCase: CreatePostUseCase
+    private val createPostUseCase: CreatePostUseCase,
+    private val navigator: AppNavigator
 ) : ViewModel() {
 
 
@@ -66,5 +70,16 @@ class AddPostViewModel @Inject constructor(
 
     fun clearSuccess() {
         _uiState.update { it.copy(success = false) }
+    }
+    fun goHome() {
+        navigator.navigate(HomeRoutes.HOME_GRAPH)
+    }
+
+    fun goToAddPost() {
+        navigator.navigate("add_post")
+    }
+
+    fun goToHistory() {
+        navigator.navigate(MyPostRoutes.MY_POST_GRAPH)
     }
 }

@@ -23,7 +23,7 @@ import com.limbergdv.sharedup.R
 
 @Composable
 fun Header(
-    name: String = "Limberg",
+    name: String = "Bienvenido de nuevo",
     onProfileClick: () -> Unit = {}
 ) {
     Row(
@@ -40,7 +40,7 @@ fun Header(
             text = "Hola $name",
             fontSize = 18.sp,
             fontWeight = FontWeight.ExtraBold,
-            color = MaterialTheme.colorScheme.onSurface
+
         )
 
         Icon(
@@ -49,7 +49,7 @@ fun Header(
             modifier = Modifier
                 .size(32.dp)
                 .clickable { onProfileClick() },
-            tint = MaterialTheme.colorScheme.onSurface
+
         )
     }
 }
@@ -57,5 +57,5 @@ fun Header(
 @Preview(showBackground = true)
 @Composable
 fun PreviewHeader() {
-    Header(name = "Limberg")
+    Header(name = "Bienvenido de nuevo")
 }

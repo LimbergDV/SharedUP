@@ -22,7 +22,11 @@ import com.limbergdv.sharedup.R
 import com.limbergdv.sharedup.core.ui.theme.primaryLight
 
 @Composable
-fun NavBar() {
+fun NavBar(
+    onHomeClick: () -> Unit,
+    onAddClick: () -> Unit,
+    onHistoryClick: () -> Unit
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -46,7 +50,7 @@ fun NavBar() {
                 contentDescription = "Inicio",
                 modifier = Modifier
                     .size(32.dp)
-                    .clickable { /* Acción Home */ },
+                    .clickable { onHomeClick() },
                 tint = Color(0xFFE0E0E0)
             )
 
@@ -55,7 +59,7 @@ fun NavBar() {
                 contentDescription = "Agregar",
                 modifier = Modifier
                     .size(32.dp)
-                    .clickable { /* Acción Add */ },
+                    .clickable { onAddClick() },
                 tint = Color(0xFFE0E0E0)
             )
         }
@@ -65,7 +69,7 @@ fun NavBar() {
             modifier = Modifier
                 .clip(RoundedCornerShape(16.dp))
                 .background(Color.Black)
-                .clickable { /* Acción History */ }
+                .clickable { onHistoryClick()}
                 .padding(horizontal = 24.dp, vertical = 16.dp),
             contentAlignment = Alignment.Center
         ) {
@@ -82,5 +86,5 @@ fun NavBar() {
 @Preview(showBackground = true)
 @Composable
 fun PreviewNavBar() {
-    NavBar()
+
 }
