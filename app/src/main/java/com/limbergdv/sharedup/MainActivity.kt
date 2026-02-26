@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.limbergdv.sharedup.ui.theme.AppTheme
+import com.limbergdv.sharedup.core.ui.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 

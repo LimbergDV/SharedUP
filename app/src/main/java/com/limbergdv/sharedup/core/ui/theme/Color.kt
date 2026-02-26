@@ -1,4 +1,4 @@
-package com.limbergdv.sharedup.ui.theme
+package com.limbergdv.sharedup.core.ui.theme
 import androidx.compose.ui.graphics.Color
 
 val primaryLight = Color(0xFF024873)
@@ -22,7 +22,7 @@ val onBackgroundLight = Color(0xFF1A1C20)
 val surfaceLight = Color(0xFFF9F9FF)
 val onSurfaceLight = Color(0xFF1A1C20)
 val surfaceVariantLight = Color(0xFFDFE2EE)
-val onSurfaceVariantLight = Color(0xFF434750)
+val onSurfaceVariantLight = Color(0xFFE2E2E2)
 val outlineLight = Color(0xFF737781)
 val outlineVariantLight = Color(0xFFC3C6D2)
 val scrimLight = Color(0xFF000000)
