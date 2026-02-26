@@ -2,7 +2,9 @@ package com.limbergdv.sharedup.features.authentication.presentation.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.limbergdv.sharedup.core.navigation.AppNavigator
 import com.limbergdv.sharedup.features.authentication.domain.usecases.RegisterUseCase
+import com.limbergdv.sharedup.features.authentication.navigation.AuthRoutes
 import com.limbergdv.sharedup.features.authentication.presentation.screens.RegisterUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +16,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
-    private val registerUseCase: RegisterUseCase
+    private val registerUseCase: RegisterUseCase,
+    private val navigator: AppNavigator
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(RegisterUiState())
@@ -68,7 +71,12 @@ class RegisterViewModel @Inject constructor(
             )
             _uiState.update { current ->
                 result.fold(
-                    onSuccess = { current.copy(isLoading = false, isSuccess = true) },
+                    onSuccess = {
+                        navigator.navigate(AuthRoutes.LOGIN) {
+                            popUpTo(AuthRoutes.REGISTER) { inclusive = true }
+                        }
+                        current.copy(isLoading = false)
+                    },
                     onFailure = { e -> current.copy(isLoading = false, error = e.message ?: "Error en el registro") }
                 )
             }
@@ -77,5 +85,15 @@ class RegisterViewModel @Inject constructor(
 
     fun clearResult() {
         _uiState.update { it.copy(isSuccess = false, error = null) }
+    }
+    fun goToLogin() {
+        navigator.navigate(AuthRoutes.LOGIN) {
+            popUpTo(AuthRoutes.REGISTER) { inclusive = true }
+        }
+    }
+    fun onRegisterSuccessConfirmed() {
+
+        goToLogin()
+
     }
 }

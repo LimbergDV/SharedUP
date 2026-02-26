@@ -2,7 +2,9 @@ package com.limbergdv.sharedup.features.authentication.presentation.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.limbergdv.sharedup.core.navigation.AppNavigator
 import com.limbergdv.sharedup.features.authentication.domain.usecases.LoginUseCase
+import com.limbergdv.sharedup.features.authentication.navigation.AuthRoutes
 import com.limbergdv.sharedup.features.authentication.presentation.screens.LoginUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +16,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val loginUseCase: LoginUseCase
+    private val loginUseCase: LoginUseCase,
+    private val navigator: AppNavigator
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(LoginUiState())
@@ -42,8 +45,18 @@ class LoginViewModel @Inject constructor(
             val result = loginUseCase(state.email, state.password)
             _uiState.update { current ->
                 result.fold(
-                    onSuccess = { current.copy(isLoading = false, isLoggedIn = true) },
-                    onFailure = { e -> current.copy(isLoading = false, error = e.message ?: "Error al iniciar sesión") }
+                    onSuccess = {
+                        navigator.navigate("home_graph") {
+                            popUpTo("auth_graph") { inclusive = true }
+                        }
+                        current.copy(isLoading = false)
+                    },
+                    onFailure = { e ->
+                        current.copy(
+                            isLoading = false,
+                            error = e.message ?: "Error al iniciar sesión"
+                        )
+                    }
                 )
             }
         }
@@ -51,5 +64,10 @@ class LoginViewModel @Inject constructor(
 
     fun clearResult() {
         _uiState.update { it.copy(error = null, isLoggedIn = false) }
+    }
+    fun goToRegister() {
+        navigator.navigate(AuthRoutes.REGISTER) {
+            popUpTo(AuthRoutes.LOGIN) { inclusive = true }
+        }
     }
 }

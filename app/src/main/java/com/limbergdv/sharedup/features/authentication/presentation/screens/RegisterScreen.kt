@@ -34,13 +34,9 @@ import com.limbergdv.sharedup.features.authentication.presentation.viewmodels.Re
 @Composable
 fun RegisterScreen(
     viewModel: RegisterViewModel = hiltViewModel(),
-    onLoginClick: () -> Unit,
-    onRegisterSuccess: () -> Unit
+
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-
-    // Navega al login automáticamente solo cuando el usuario cierra el dialog de éxito
-    // (se maneja en el onDismiss del DialogSuccess)
 
     Column(
         modifier = Modifier
@@ -78,7 +74,7 @@ fun RegisterScreen(
                 text = "← Inicio de sesión",
                 fontSize = 14.sp,
                 color = primaryLight,
-                modifier = Modifier.clickable { onLoginClick() }
+                modifier = Modifier.clickable { viewModel.goToLogin() }
             )
 
             Spacer(modifier = Modifier.height(10.dp))
@@ -150,8 +146,7 @@ fun RegisterScreen(
             message = "Tu cuenta fue creada correctamente. Inicia sesión para continuar.",
             buttonText = "Ir a iniciar sesión",
             onDismiss = {
-                viewModel.clearResult()
-                onRegisterSuccess()
+                viewModel.onRegisterSuccessConfirmed()
             }
         )
     }
