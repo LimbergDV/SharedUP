@@ -81,3 +81,6 @@ kotlin {
         implementation("androidx.datastore:datastore-preferences:1.0.0")
     }
 }
+dependencies {
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+}
