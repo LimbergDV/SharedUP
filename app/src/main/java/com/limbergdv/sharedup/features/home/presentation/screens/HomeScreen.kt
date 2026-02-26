@@ -33,6 +33,7 @@ fun HomeScreen(
         modifier = Modifier.fillMaxSize(),
         containerColor = onPrimaryLight,
         bottomBar = {
+            // Tu NavBar intacto
             NavBar(
                 onHomeClick = { viewModel.goHome() },
                 onAddClick = { viewModel.goToAddPost() },
@@ -77,7 +78,12 @@ fun HomeScreen(
                         contentPadding = PaddingValues(bottom = 16.dp)
                     ) {
                         items(uiState.posts) { post ->
-                            PostCard(post = post)
+                            // ÚNICO CAMBIO: Le pasamos los clics a la tarjeta
+                            PostCard(
+                                post = post,
+                                //onLikeClick = { viewModel.likePost(post.id) },
+                                // onDislikeClick = { viewModel.dislikePost(post.id) }
+                            )
                             Spacer(modifier = Modifier.height(16.dp))
                         }
                     }

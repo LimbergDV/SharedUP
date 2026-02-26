@@ -5,4 +5,6 @@ import com.limbergdv.sharedup.features.addPost.domain.entities.Post
 
 interface HomeRepository {
     suspend fun getPosts(): List<Post>
+    suspend fun likePost(postId: Int): Post
+    suspend fun dislikePost(postId: Int): Post
 }
