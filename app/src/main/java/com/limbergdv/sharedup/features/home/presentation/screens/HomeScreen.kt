@@ -33,7 +33,11 @@ fun HomeScreen(
         modifier = Modifier.fillMaxSize(),
         containerColor = onPrimaryLight,
         bottomBar = {
-            NavBar()
+            NavBar(
+                onHomeClick = { viewModel.goHome() },
+                onAddClick = { viewModel.goToAddPost() },
+                onHistoryClick = { viewModel.goToHistory() }
+            )
         }
     ) { innerPadding ->
         Column(
