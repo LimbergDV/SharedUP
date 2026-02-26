@@ -1,4 +1,7 @@
 package com.limbergdv.sharedup.features.addPost.presentation.screens
 
-class AddPostUiState {
-}
+data class AddPostUiState(
+    val isLoading: Boolean = false,
+    val success: Boolean = false,
+    val error: String? = null
+)
