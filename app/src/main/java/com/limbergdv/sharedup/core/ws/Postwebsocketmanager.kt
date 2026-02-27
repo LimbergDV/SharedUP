@@ -19,7 +19,10 @@ data class PostWsEvent(
     val text: String,
     val likeCount: Int,
     val dislikeCount: Int,
-    val idUser: Int
+    val idUser: Int,
+    val userName: String,
+    val userCareer: String,
+    val createdAt: String,
 )
 
 @Singleton
@@ -69,7 +72,10 @@ class PostWebSocketManager @Inject constructor(
                         text         = data.optString("text", "").trim(),
                         likeCount    = data.optInt("like_count", 0),
                         dislikeCount = data.optInt("dislike_count", 0),
-                        idUser       = data.optInt("iduser", 0)
+                        idUser       = data.optInt("iduser", 0),
+                        userName     = data.optString("user_name",""),
+                        userCareer = data.optString("user_career",""),
+                        createdAt = data.optString("created_at","")
                     )
 
                     Log.d(TAG, "Post parseado — título: '${event.title}', usuario: ${event.idUser}")

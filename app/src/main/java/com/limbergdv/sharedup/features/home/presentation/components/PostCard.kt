@@ -61,13 +61,13 @@ fun PostCard(
 
             Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    text = "Usuario #${post.idUser}",
+                    text = "${post.userName}",
                     fontWeight = FontWeight.ExtraBold,
                     fontSize = 18.sp,
                     color = Color.Black
                 )
                 Text(
-                    text = "Ingeniería en Software",
+                    text = "${post.userCareer}",
                     fontSize = 15.sp,
                     color = Color.DarkGray
                 )
@@ -78,17 +78,12 @@ fun PostCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "7:10 am",
+                    text = "${post.createdAt}",
                     fontWeight = FontWeight.Bold,
                     fontSize = 14.sp,
                     color = Color.Black
                 )
-                Text(
-                    text = "12/12/23",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 14.sp,
-                    color = Color.Black
-                )
+
             }
         }
 
@@ -164,7 +159,10 @@ fun PreviewPostCard() {
             text = "El dia de hoy no hay paso en via téran hay una marcha de docentes",
             likeCount = 12,
             disLikeCount = 0,
-            idUser = 101
+            idUser = 101,
+            userName = "",
+            userCareer = "",
+            createdAt = ""
         )
     )
 }
