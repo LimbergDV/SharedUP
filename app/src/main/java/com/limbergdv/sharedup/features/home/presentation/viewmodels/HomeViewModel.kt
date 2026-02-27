@@ -76,9 +76,9 @@ class HomeViewModel @Inject constructor(
                         likeCount = event.likeCount,
                         disLikeCount = event.dislikeCount,
                         idUser = event.idUser,
-                        userName = "Carlos", // Agrega esto
-                        userCareer = "Software", // Agrega esto
-                        createdAt = "2026-02-26"  // Agrega esto
+                        userName = event.userName,
+                        userCareer = event.userCareer,
+                        createdAt = event.createdAt
                     )
 
                     // Lo agregamos al INICIO de la lista para que se vea primero
