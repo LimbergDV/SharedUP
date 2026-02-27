@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.sp
 import com.limbergdv.sharedup.R
 import com.limbergdv.sharedup.core.ui.theme.onSurfaceVariantLight
 import com.limbergdv.sharedup.core.ui.theme.outlineVariantLight
-import com.limbergdv.sharedup.features.addPost.domain.entities.Post
+import com.limbergdv.sharedup.features.home.domain.entities.Post
 
 @Composable
 fun PostCard(

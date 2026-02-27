@@ -1,6 +1,6 @@
 package com.limbergdv.sharedup.features.home.domain.usecases
 
-import com.limbergdv.sharedup.features.addPost.domain.entities.Post
+import com.limbergdv.sharedup.features.home.domain.entities.Post
 import com.limbergdv.sharedup.features.home.domain.repositories.HomeRepository
 import javax.inject.Inject
 

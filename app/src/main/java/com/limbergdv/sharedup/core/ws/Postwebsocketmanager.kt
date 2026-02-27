@@ -45,15 +45,15 @@ class PostWebSocketManager @Inject constructor(
         val listener = object : WebSocketListener() {
 
             override fun onOpen(webSocket: WebSocket, response: Response) {
-                Log.d(TAG, "✅ Conectado al WebSocket")
+                Log.d(TAG, "Conectado al WebSocket")
             }
 
             override fun onMessage(webSocket: WebSocket, text: String) {
-                Log.d(TAG, "📩 JSON CRUDO: $text")
+                Log.d(TAG, "JSON CRUDO: $text")
 
                 synchronized(this) {
                     if (isProcessing) {
-                        Log.d(TAG, "⚠️ Mensaje duplicado de thread paralelo, ignorado")
+                        Log.d(TAG, "Mensaje duplicado de thread paralelo, ignorado")
                         return
                     }
                     isProcessing = true
@@ -72,23 +72,23 @@ class PostWebSocketManager @Inject constructor(
                         idUser       = data.optInt("iduser", 0)
                     )
 
-                    Log.d(TAG, "✅ Post parseado — título: '${event.title}', usuario: ${event.idUser}")
+                    Log.d(TAG, "Post parseado — título: '${event.title}', usuario: ${event.idUser}")
                     trySend(event)
 
                 } catch (e: Exception) {
-                    Log.e(TAG, "❌ Error al parsear: ${e.message}")
+                    Log.e(TAG, "Error al parsear: ${e.message}")
                 } finally {
                     synchronized(this) { isProcessing = false }
                 }
             }
 
             override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
-                Log.e(TAG, "❌ Error en WebSocket: ${t.message}")
+                Log.e(TAG, " Error en WebSocket: ${t.message}")
                 close(t)
             }
 
             override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
-                Log.d(TAG, "🔌 WebSocket cerrado: $reason")
+                Log.d(TAG, " WebSocket cerrado: $reason")
                 close()
             }
         }
@@ -96,7 +96,7 @@ class PostWebSocketManager @Inject constructor(
         webSocket = okHttpClient.newWebSocket(request, listener)
 
         awaitClose {
-            Log.d(TAG, "⏹️ Cerrando WebSocket")
+            Log.d(TAG, "Cerrando WebSocket")
             webSocket?.close(1000, "Pantalla cerrada")
             webSocket = null
         }

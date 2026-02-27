@@ -1,6 +1,7 @@
 package com.limbergdv.sharedup.features.home.data.datasources.remote.api
 
-import com.limbergdv.sharedup.features.addPost.data.datasources.remote.models.PostDto
+
+import com.limbergdv.sharedup.features.home.data.datasources.remote.models.PostDto
 import retrofit2.http.GET
 import retrofit2.http.PUT
 import retrofit2.http.Path

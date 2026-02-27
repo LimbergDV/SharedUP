@@ -14,7 +14,7 @@ object WebSocketModule {
     @Provides
     @Singleton
     fun providePostWebSocketManager(
-        okHttpClient: OkHttpClient // Se reutiliza el mismo OkHttpClient que ya tienes
+        okHttpClient: OkHttpClient // Se reutiliza el mismo OkHttpClient
     ): PostWebSocketManager {
         return PostWebSocketManager(okHttpClient)
     }

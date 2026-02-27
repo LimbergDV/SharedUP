@@ -1,8 +1,9 @@
 package com.limbergdv.sharedup.features.home.data.repositories
 
-import com.limbergdv.sharedup.features.addPost.data.remote.mapper.toDomain
-import com.limbergdv.sharedup.features.addPost.domain.entities.Post
+
+import com.limbergdv.sharedup.features.home.domain.entities.Post
 import com.limbergdv.sharedup.features.home.data.datasources.remote.api.HomeApi
+import com.limbergdv.sharedup.features.home.data.datasources.remote.mappers.toDomain
 import com.limbergdv.sharedup.features.home.domain.repositories.HomeRepository
 import javax.inject.Inject
 

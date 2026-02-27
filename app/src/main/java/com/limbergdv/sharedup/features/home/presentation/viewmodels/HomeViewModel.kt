@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.limbergdv.sharedup.core.navigation.AppNavigator
 import com.limbergdv.sharedup.core.ws.PostWebSocketManager
-import com.limbergdv.sharedup.features.addPost.domain.entities.Post
+import com.limbergdv.sharedup.features.home.domain.entities.Post
 import com.limbergdv.sharedup.features.addPost.navigation.AddPostRoutes
 import com.limbergdv.sharedup.features.home.domain.usecases.GetPostsUseCase
 import com.limbergdv.sharedup.features.home.navigation.HomeRoutes
@@ -38,7 +38,7 @@ class HomeViewModel @Inject constructor(
         startListeningPosts()
     }
 
-    // ── Carga inicial de posts desde la API REST ──────────────────────────────
+    // Carga inicial de posts desde la API
     fun getPosts() {
         _uiState.update { it.copy(isLoading = true, error = null) }
 
@@ -56,17 +56,17 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    // ── Escucha posts en tiempo real vía WebSocket ────────────────────────────
+    // Escucha posts en tiempo real vía WebSocket
     private fun startListeningPosts() {
         wsJob?.cancel() // Cancelamos si ya había una conexión activa
         wsJob = viewModelScope.launch {
             postWebSocketManager.observePosts()
                 .catch { error ->
                     // Si el WebSocket falla, lo logueamos pero no tumbamos la app
-                    Log.e("HomeViewModel", "❌ Error en WebSocket: ${error.message}")
+                    Log.e("HomeViewModel", " Error en WebSocket: ${error.message}")
                 }
                 .collect { event ->
-                    Log.d("HomeViewModel", "📩 Nuevo post en tiempo real: ${event.title}")
+                    Log.d("HomeViewModel", " Nuevo post en tiempo real: ${event.title}")
 
                     // Construimos un Post de dominio con los datos del WebSocket
                     val nuevoPost = Post(
@@ -87,14 +87,14 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    // ── Limpieza cuando el ViewModel se destruye ──────────────────────────────
+
     override fun onCleared() {
         super.onCleared()
         wsJob?.cancel()
         postWebSocketManager.disconnect()
     }
 
-    // ── Navegación ─────────────────────────────────────────────────────────────
+
     fun goHome() {
         navigator.navigate(HomeRoutes.HOME_GRAPH)
     }
