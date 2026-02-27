@@ -58,25 +58,18 @@ fun MyPostCard(
                     fontSize = 18.sp,
                     color = Color.Black
                 )
-                Text(
-                    text = "ID Usuario: ${post.idUser}",
-                    fontSize = 15.sp,
-                    color = Color.DarkGray
-                )
+
             }
 
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = "ID: ${post.id}",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 14.sp,
-                    color = Color.Black
-                )
-            }
+
         }
+        Text(
+            text = post.title,
+            fontWeight = FontWeight.Bold,
+            fontSize = 18.sp,
+            color = Color.Black,
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp)
+        )
 
         Text(
             text = post.text,

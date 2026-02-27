@@ -6,7 +6,11 @@ data class PostDto(
     val text: String?,
     val like_count: Int?,
     val dislike_count: Int?,
-    val iduser: Int?
+    val iduser: Int,
+    val user_name: String,
+    val user_career: String,
+    val created_at: String,
+
 )
 
 data class CreatePostRequest(

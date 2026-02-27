@@ -7,6 +7,12 @@ data class Post(
     val likeCount: Int,
     val disLikeCount: Int,
     val idUser: Int,
+
+    val userName: String,
+    val userCareer: String,
+
+    val createdAt: String,
+
     val isLiked: Boolean = false,
     val isDisliked: Boolean = false
 )

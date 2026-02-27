@@ -11,6 +11,9 @@ fun PostDto.toDomain(): Post {
         text = text ?: "",
         likeCount = like_count ?: 0,
         disLikeCount = dislike_count ?: 0,
-        idUser = iduser ?: 0
+        idUser = iduser,
+        userName = user_name,
+        userCareer = user_career,
+        createdAt = created_at
     )
 }
